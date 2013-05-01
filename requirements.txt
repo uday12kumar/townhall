@@ -1,0 +1,8 @@
+Django==1.4.3
+distribute==0.6.28
+dj-database-url==0.2.1
+django-openid-auth==0.4
+psycopg2==2.4.6
+python-openid==2.2.5
+requests==1.0.4
+wsgiref==0.1.2
