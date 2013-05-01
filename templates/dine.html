@@ -133,7 +133,7 @@
             <div class="btn-group">
       </div>
             Select Resturant:
-            <select id="restaurants" onchange="get_items()">
+            <select id="restaurants" onchange="get_items()" size="1">
                 {% for restaurant,id in restaurants.items %}
                      <option value="{{ id }}">{{ restaurant }}</option>
                 {% endfor %}
