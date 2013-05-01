@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from openid.consumer.consumer import SUCCESS
 from django.core.mail import mail_admins
-from food.models import Food
+from food.models import Order
 from townhall import settings
 import datetime
 

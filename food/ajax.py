@@ -3,6 +3,8 @@ from dajaxice.decorators import dajaxice_register
 
 @dajaxice_register
 def get_items_list(request, option):
+    import pdb
+    pdb.set_trace()
     dajax = Dajax()
     option
     restaurant_obj =  Restaurant.objects.get(id=int(option))

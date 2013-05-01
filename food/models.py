@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Food(models.Model):
+class Order(models.Model):
 	email = models.CharField(max_length=50)
 	fooditem = models.CharField(max_length=50)
 	date = models.DateField()

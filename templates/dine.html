@@ -62,6 +62,44 @@
     <link rel="apple-touch-icon-precomposed" href="http://peopleops.org/public/bootstrap/ico/apple-touch-icon-57-precomposed.png">
      <link href="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css" rel="stylesheet">
      <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+        <script>
+        function get_items()
+        {
+            $("#itemsTable > tbody").empty();
+            var id = document.getElementById("restaurants").value;
+            $.getJSON('/food-items?id='+id,function(data) {
+                if(data.food_items.length > 0){
+                    document.getElementById('showTable').style.display = "block";
+                    for(var i=0; i < data.food_items.length; i++){
+                            var table = document.getElementById("itemsTable");
+                            var tbody=document.getElementsByTagName('tbody')[0];
+                            var row=document.createElement('tr');
+                            var cell1=document.createElement('td');
+                            var cell2=document.createElement('td');
+                            //cell2.data-title ="Software Name";
+                            var cell3=document.createElement('td');
+                            var cell1value='';
+                            var cell2value='';
+                            var cell3value='';
+                            select_string = '';
+                            cell1value+='<label class="checkbox"><input type="checkbox" name="item_name" id="item_name" value="'+data.food_items[i]+'">';
+                            cell2value+=data.food_items[i];
+                            //cell3value+='<input type="number" name="quantity" id="quantity">';
+                            cell3value+='<input class="span1" type="text">';
+                            cell1.innerHTML=cell1value;
+                            cell2.innerHTML=cell2value;
+                            cell3.innerHTML=cell3value;
+                            row.appendChild(cell1);
+                            row.appendChild(cell2);
+                            row.appendChild(cell3);
+                            tbody.appendChild(row);
+                    }
+                    
+                }
+            });
+        }
+        
+      </script>
   </head>
 
   <body>
@@ -94,32 +132,32 @@
           <fieldset>
             <legend>Make your order</legend>
             <div class="btn-group">
-        <button class="btn btn-small" onclick="">Select Resturant</button>
-        <button class="btn btn-small dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li class="divider"></li>
-          <li><a href="#">Separated link</a></li>
-        </ul>
       </div>
-            <br>
-            <br>
-            <select onchange="Dajaxice.examples.updatecombo(Dajax.process, {'option':this.value})" size="1">
-             {% for resturant in data %}
-                     <option value={{ resturant.id }}>{{ resturant.name }}</option>
-             {% endfor %}
-        </select>
-        <div id="foor_items" size="1"></div>  
-                    
-            <label>Restaurants</label>
-            <input type="text" placeholder="Type something…">
-            <span class="help-block">Order will be taken if the restaurant has home delivery.</span>
-            <label class="checkbox">
-              <input type="checkbox"> Check me out
-            </label>
-            <button type="submit" class="btn">Submit</button>
+            Select Resturant:
+            <select id="restaurants" onchage="get_items()">
+                {% for restaurant,id in restaurants.items %}
+                     <option value="{{ id }}" onmouseover="window.status=this.value">{{ restaurant }}</option>
+                {% endfor %}
+            </select>
+        
+          
+            <div class="control-group" style="display: none" id="showTable">
+            <label class="control-label" for="licenses"></label>
+                <div class="controls">
+                    <table class="table table-condensed" id="itemsTable">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select_all" onclick="selectall(this)"></th>
+                                <th>Item name</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-success">Assign License</button>
+                </div>
+            </div>
           </fieldset>
         </form>
       </div>
@@ -152,6 +190,15 @@
     <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-collapse.js"></script>
     <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-carousel.js"></script>
     <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-typeahead.js"></script>
-
+    <script>
+        function selectall(source)
+        {
+                     checkboxes = document.getElementsByName('item_name');
+                     for(var i in checkboxes)
+                     {
+                                  checkboxes[i].checked = source.checked;
+                     }
+        }
+    </script>
   </body>
 </html>
