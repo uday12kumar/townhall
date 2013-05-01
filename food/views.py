@@ -8,10 +8,12 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
+from models import Restaurant, Food
 import json
 import datetime
 import random
 import string
+
 
 
 def check_user(request):
@@ -31,6 +33,13 @@ def home(request):
                                       context_instance=RequestContext(request))
 
 def dine(request):
+	data =[]
+	restaurant_obj =  Restaurant.objects.all()
+	for restaurant in restaurant_obj:
+		data.append({'name':restaurant.name, 'id':restaurant.id})
 	return render_to_response("dine.html",
-                                      "",
+                                      data,
                                       context_instance=RequestContext(request))
+
+
+

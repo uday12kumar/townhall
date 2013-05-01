@@ -129,6 +129,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_openid_auth',
     'food',
+    'dajaxice',
+    'dajax',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

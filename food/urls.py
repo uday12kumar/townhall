@@ -9,4 +9,6 @@ urlpatterns = patterns('food.views',
     url(r'^$', 'check_user', name='check_user'),
     url(r'^home$', 'home', name='home'),
     url(r'^dine$', 'dine', name='dine'),
+    url(r'^get_items_list$', 'get_items_list', name='get_items_list'),
+    
 )
