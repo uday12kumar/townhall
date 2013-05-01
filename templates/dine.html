@@ -98,7 +98,6 @@
                 }
             });
         }
-        
       </script>
   </head>
 
@@ -134,9 +133,9 @@
             <div class="btn-group">
       </div>
             Select Resturant:
-            <select id="restaurants" onchage="get_items()">
+            <select id="restaurants" onchange="get_items()">
                 {% for restaurant,id in restaurants.items %}
-                     <option value="{{ id }}" onmouseover="window.status=this.value">{{ restaurant }}</option>
+                     <option value="{{ id }}">{{ restaurant }}</option>
                 {% endfor %}
             </select>
         
