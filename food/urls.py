@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('food.views',
     # Examples:
-    url(r'^$', 'index', name='index'),
+    url(r'^$', 'check_user', name='check_user'),
     url(r'^home$', 'home', name='home'),
     url(r'^dine$', 'dine', name='dine'),
 )

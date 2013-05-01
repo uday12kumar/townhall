@@ -88,10 +88,29 @@
           </li>
         <ul>
       </div>
+      
       <div>
         <form form-horizontal>
           <fieldset>
             <legend>Make your order</legend>
+            <div class="btn-group">
+        <button class="btn btn-small" onclick="">Select Resturant</button>
+        <button class="btn btn-small dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+            <br>
+            <br>
+                  
+                  
+                  
+                    
+                    
             <label>Restaurants</label>
             <input type="text" placeholder="Type something…">
             <span class="help-block">Order will be taken if the restaurant has home delivery.</span>
@@ -102,6 +121,7 @@
           </fieldset>
         </form>
       </div>
+      
 
       <hr>
 
@@ -114,19 +134,22 @@
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}bootstrap/js/jquery.js"></script>
+    <!--<script type="text/javascript" src="{{ MEDIA_URL }}bootstrap/js/bootstrap.js"></script>-->
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}bootstrap/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}bootstrap/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}bootstrap/js/bootstrap-button.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-alert.js"></script>    
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-modal.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-tab.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-popover.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-button.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="{{ MEDIA_URL }}bootstrap/js/bootstrap-typeahead.js"></script>
 
   </body>
 </html>

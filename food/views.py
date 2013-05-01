@@ -14,8 +14,14 @@ import random
 import string
 
 
-def index(request):
-    return render_to_response("index.html",
+def check_user(request):
+    if "loggeduser_email" in request.session:
+        
+        return render_to_response("main.html",
+                                      "",
+                                      context_instance=RequestContext(request))
+    else:
+        return render_to_response("index.html",
                                       "",
                                       context_instance=RequestContext(request))
 

@@ -38,7 +38,7 @@ def login_complete(request):
     request.session['loggeduser_email'] = request.GET['openid.ext1.value.old_email']
     request.session['loggeduser_name'] = request.GET['openid.ext1.value.firstname']
     data = ''
-    return HttpResponseRedirect('/home')
+    return HttpResponseRedirect('/')
     # return render_to_response("main.html",
     #                                 data,context_instance=RequestContext(request))
 
