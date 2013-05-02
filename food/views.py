@@ -9,10 +9,7 @@ from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import auth
 from models import Restaurant, Order
-import json
-import datetime
-import random
-import string
+import json, datetime, random, string
 
 
 
@@ -32,11 +29,23 @@ def home(request):
                                       context_instance=RequestContext(request))
 
 def dine(request):
+    if request.method == "POST":
+        data_dict = dict(request.POST)
+        orderObj = Order(restaurant_name=request.POST.get("restaurant_name"),
+                         email=request.session['loggeduser_email'],
+                         fooditem=json.dumps(data_dict),
+                         date=datetime.datetime.now(),
+                         comment="",
+                         cost=0,
+                         total_cost=0)
+        orderObj.save()
     restaurants = {}
+    orderObjects = Order.objects.all()
     restaurant_obj =  Restaurant.objects.all()
     for restaurant in restaurant_obj:
         restaurants[restaurant.restaurant_name] = restaurant.id
-    data = { "restaurants":  restaurants}
+    data = {"restaurants":  restaurants,
+            "orders": orderObjects}
     return render_to_response("dine.html",
                                       data,
                                       context_instance=RequestContext(request))

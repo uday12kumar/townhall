@@ -2,13 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Template &middot; Bootstrap</title>
+    <title>Mutual Mobile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <link rel="icon" href="{{ MEDIA_URL }}images/mm_logo.png" type="image/gif" sizes="16x16">
     <!-- Le styles -->
     <link href="{{ MEDIA_URL}}bootstrap/css/bootstrap.css" rel="stylesheet">
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
     <style type="text/css">
       body {
         padding-top: 20px;
@@ -46,11 +47,6 @@
         margin-top: 28px;
       }
     </style>
-    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -64,43 +60,93 @@
         <script>
         function get_items()
         {
+            document.getElementById('your_order').style.display = "none";
             $("#itemsTable > tbody").empty();
             var id = document.getElementById("restaurants").value;
+            if (id == "Select Restaurant"){
+                document.getElementById('show_order').style.display = "none";
+            }
             $.getJSON('/food-items?id='+id,function(data) {
                 if(data.food_items.length > 0){
+                    document.getElementById('show_order').style.display = "block";
                     document.getElementById('showTable').style.display = "block";
-                   // document.getElementById("itemsTable").setAttribute("class", "table table-condensed");
+                    var item = document.getElementById("restaurants");
+                    document.getElementById('itemName').innerHTML = "Restaurant: " + item.options[item.selectedIndex].text;
+                    document.getElementById('restaurant_name').value = item.options[item.selectedIndex].text;
+                    document.getElementById("itemsTable").setAttribute("class", "table table-condensed");
                     var cntltxtInput = document.getElementById("itemsTable");
-                     cntltxtInput.setAttribute("class", "table table-condensed");
+                    cntltxtInput.setAttribute("class", "table table-condensed");
+                    cntltxtInput.setAttribute("border", "0");
                     for(var i=0; i < data.food_items.length; i++){
-                            var table = document.getElementById("itemsTable");
-                            var tbody=document.getElementsByTagName('tbody')[0];
-                            var row=document.createElement('tr');
-                            var cell1=document.createElement('td');
-                            var cell2=document.createElement('td');
-                            //cell2.data-title ="Software Name";
-                            var cell3=document.createElement('td');
-                            var cell1value='';
-                            var cell2value='';
-                            var cell3value='';
-                            select_string = '';
-                            cell1value+='<label class="checkbox"><input type="checkbox" name="item_name"  id="item_name" value="'+data.food_items[i]+'">';
-                            cell2value+=data.food_items[i];
-                            //cell3value+='<input type="number" name="quantity" id="quantity">';
-                            cell3value+='<input class="span1" type="text" size="1" >';
-                            cell1.innerHTML=cell1value;
-                            cell2.innerHTML=cell2value;
-                            cell3.innerHTML=cell3value;
-                            row.appendChild(cell1);
-                            row.appendChild(cell2);
-                            row.appendChild(cell3);
-                            tbody.appendChild(row);
+                        //var newArea = add_New_Element();
+                        //var htcontents = '<input type="checkbox" name="item_name"/>&nbsp&nbsp'+data.food_items[i]+'';
+                        //document.getElementById(newArea).innerHTML = htcontents; // You can any other elements in place of 'htcontents' 
+                        var table = document.getElementById("itemsTable");
+                        var tbody=document.getElementsByTagName('tbody')[0];
+                        var row=document.createElement('tr');
+                        var cell1=document.createElement('td');
+                        var cell2=document.createElement('td');
+                        var cell1value='';
+                        var cell2value='';
+                        select_string = '';
+                        cell1value+='<label class="checkbox"><input type="checkbox" name="item_name"  id="item_name" class="ads_Checkbox" value="'+data.food_items[i]+'">';
+                        cell2value+=data.food_items[i];
+                        //cell3value+='<input type="number" name="quantity" id="quantity">';
+                        //cell3value+='<input class="span1" type="text" size="1" >';
+                        cell1.innerHTML=cell1value;
+                        cell2.innerHTML=cell2value;
+                        //cell3.innerHTML=cell3value;
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                        //row.appendChild(cell3);
+                        tbody.appendChild(row);
                     }
-                    
                 }
             });
         }
+        
+        function toggleSelectBox(selbox){ 
+            if(selbox.size>1){//HIDE:
+             selbox.size=1;
+             selbox.style.position='static';
+            }else{//SHOW:
+             selbox.size = selbox.options.length;
+             selbox.style.position='absolute';
+             selbox.style.height='auto';
+            }
+        }
+        
+        function add_New_Element() {
+            inival=inival+1; // Increment element number by 1
+            var ni = document.getElementById('area');
+            var newdiv = document.createElement('div'); // Create dynamic element
+            var divIdName = 'my'+inival+'Div';
+            newdiv.setAttribute('id',divIdName);
+            ni.appendChild(newdiv);
+            return divIdName;
+        }
       </script>
+        
+        <script type='text/javascript'>//<![CDATA[ 
+        $(function(){
+        $('#save_value').click(function(){
+            var inpfields = document.getElementById('item_name');
+            var order_table = document.getElementById("order_items");
+            order_table.innerHTML = "";
+            //alert($("[type='checkbox']:checked").length);
+            if ($("[type='checkbox']:checked").length > 0) {
+                document.getElementById('your_order').style.display = "block";
+                $('.ads_Checkbox:checked').each(function(){
+                    order_table.innerHTML  = order_table.innerHTML + $(this).val() + '  &nbsp&nbsp&nbsp<input class="input-mini" type="number" name="'+$(this).val()+'" id="'+$(this).val()+'" step="1" min="1" max="50" placeholder="1" size="1" style="height: 17px"> <br> \n';
+                    //alert($(this).val());
+                });
+            }
+            else{
+                document.getElementById('your_order').style.display = "none";
+            }
+            });
+        });
+        </script>
   </head>
 
   <body>
@@ -127,52 +173,60 @@
           </li>
         <ul>
       </div>
-
-      <div class="row-fluid marketing">
-        <div class="span6">
-          <div>
-        <form form-horizontal>
-          <fieldset>
-            <legend>Make your order</legend>
-            <div class="btn-group">
-      </div>
-            Select Resturant:
-            <select id="restaurants" onchange="get_items()" size="1">
-                {% for restaurant,id in restaurants.items %}
-                     <option value="{{ id }}">{{ restaurant }}</option>
-                {% endfor %}
-            </select>
-        
-          
-            <div class="control-group" style="display: none" id="showTable">
-            <label class="control-label" for="licenses"></label>
-                <div class="controls">
-                    <table class="table table-condensed" id="itemsTable">
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox" id="select_all" onclick="selectall(this)"></th>
-                                <th>Item name</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <button type="submit" class="btn btn-success">Assign License</button>
-                </div>
+<!-- Textbox will be added in followng DIV -->
+        <div class="row">
+            <div class="span9">
+                <legend>Make your order</legend>
+                <!--<select id="restaurants" onchange="get_items()" onmouseout="toggleSelectBox(this)" onmouseover="toggleSelectBox(this)" size="1">-->
+                <select id="restaurants" onchange="get_items()" size="1">
+                    <option>Select Restaurant</option>
+                    {% for restaurant,id in restaurants.items %}
+                         <option value="{{ id }}">{{ restaurant }}</option>
+                    {% endfor %}
+                </select>
             </div>
-          </fieldset>
-        </form>
-      </div>
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
         </div>
-
-        <div class="span6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+        
+            <div class="row-fluid marketing">
+                <div class="span6">
+                    <div id="show_order" style="display: none">
+                        <div class="control-group" style="display: none" id="showTable">
+                            <h4><div id="itemName"></div></h4>
+                            <label class="control-label" for="licenses"></label>
+                                <div class="controls">
+                                    <table class="table table-condensed" id="itemsTable" border="0">
+                                        <thead>
+                                            <tr style="vertical-align: middle">
+                                                <th><input type="checkbox" id="select_all" onclick="selectall(this)"></th>
+                                                <th>Item name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <div id="checkboxValidation" style="display: none;"><br><p class="text-error"">Select atleast one option!</p></div>
+                                    <input type="button" id="save_value" name="save_value" value="Add" class="btn btn-success">
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="span6" style="text-align: right">
+                    <div id="your_order" style="display: none">
+                        <h4>Your Order</h4>
+                        <form action="/dine" name="place_order" method="POST" onsubmit="return form_validation()" validate>
+                            <div id='order_items'></div>
+                            <div style="display: none">
+                                <input type="text" id="restaurant_name" name="restaurant_name">
+                            </div>
+                            <button type="submit" class="btn btn-success">Place Order</button>
+                        </form>
+                    </div>
+                </div>
+            
         </div>
-      </div>
+      
 
       <hr>
 
