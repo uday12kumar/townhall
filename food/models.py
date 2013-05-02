@@ -13,7 +13,7 @@ class Order(models.Model):
     restaurant_name = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
     fooditem = models.TextField()
-    date = models.DateTimeField()
+    date = models.CharField(max_length=100)
     comment = models.TextField(blank=True)
     cost = models.IntegerField(max_length=5)
     total_cost = models.IntegerField(max_length=5)
